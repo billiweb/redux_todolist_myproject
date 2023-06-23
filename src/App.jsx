@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import { useState } from "react";
+import uuid from "react-uuid";
 
 function App() {
   const initialState = useSelector((state) => {
@@ -9,10 +10,18 @@ function App() {
   });
 
   const [todos, setTodos] = useState(initialState);
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('')
+
+  const StInputBox = styled.div`
+    background-color: orange;
+    padding: 10px;
+  `;
 
   const StContainer = styled.div`
     display: flex;
   `;
+
   const StListBox = styled.div`
     width: 300px;
     border: 1px solid black;
@@ -26,15 +35,27 @@ function App() {
         <h2>My Todo List</h2>
       </div>
 
-      <div
-        style={{
-          backgroundColor: "orange",
-          padding: "10px",
-        }}
-      >
-        <form>
-          제목 : <input type="text" placeholder="제목" />
-          내용 : <input type="text" placeholder="내용" />
+      <div>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            const newTodos = {
+              id: uuid(),
+              title,
+              content,
+              isDone: false,
+            };
+            setTodos([...todos, newTodos]);
+          }}
+        >
+
+          제목 : <input type="text" placeholder="제목" value={title} onChange={(event)=>{
+              setTitle(event.target.value)
+            }} ></input>
+
+          내용 : <input type="text" placeholder="내용" value={content} onChange={(event)=>{
+            setContent(event.target.value)
+          }}></input>
           <button>저장하기</button>
         </form>
       </div>

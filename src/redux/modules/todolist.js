@@ -1,14 +1,15 @@
+import uuid from "react-uuid";
 
 const initialState = {
     todolist: [
     {
-        id: 1,
+        id: uuid(),
         title: "리엑트 공부하기",
         content: "강의 완주!",
         isDone: false,
     },
     {
-        id: 2,
+        id: uuid(),
         title: "리엑트 공부하기",
         content: "강의 완주!",
         isDone: false,
